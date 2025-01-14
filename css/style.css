@@ -1,0 +1,16 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: darkslategrey;
+    color: white;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    margin: 1rem;
+    gap: 0.5rem;
+}

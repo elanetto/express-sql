@@ -2,12 +2,15 @@ import express from "express";
 import cors from "cors";
 import mysql from 'mysql2/promise';
 
+const port = process.env.PORT || 3000;
+console.log(port);
+
 const connection = await mysql.createConnection({
-  host: 'sql7.freesqldatabase.com',
-  database: 'sql7756924',
-  user: 'sql7756924',
-  password: 'nyKKdCJZGZ',
-  port: 3306,
+	host: process.env.DB_HOST,
+	database: process.env.DB_NAME,
+	user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+	port: process.env.DB_PORT,
 });
 
 const app = express();
@@ -28,11 +31,6 @@ app.get("/", async (req, res) => {
     res.send(result);
 });
 
-// app.get("/user/:id", (req, res) => {
-//     console.log(req.params.id);
-//     res.send(req.params.id);
-// });
-
 app.listen(3000, () => {
     console.log("Server started");
 })
@@ -41,18 +39,6 @@ app.get("/query", (req,res) => {
     res.send(req.query);
 })
 
-// app.get("/user/id/:id", (req, res) => {
-//     res.send(req.params.id);
-// })
-
-// // Jonas 
-// app.get("/user/:id", async (req, res) => {
-//     const userId = req.params.id;
-//     const [result] = await connection.query(`SELECT * FROM user WHERE id . ${userId}`);
-//     res.json(result);
-// });
-
-// Ludvig
 app.get("/user/:id", async (req, res) => {
     const id = Number(req.params.id);
     if(!isNaN(id)) {
@@ -90,6 +76,45 @@ app.get("/post", async (req, res) => {
     `);
     res.json(result);
 });
+
+app.get('/test', async (req, res) => {
+    const [result] = await connection.query("SELECT * FROM test");
+    res.json(result);
+});
+
+app.get('/test/:id', async (req, res) => {
+    const {id} = req.params;
+    const [result] = await connection.query("SELECT * FROM test WHERE id=" + id);
+    res.json(result);
+})
+
+app.post('/test', async (req, res) => {
+    const {content} = req.body;
+    const [result] = await connection.query("INSERT INTO test(content) VALUES('"+content+"')");
+    res.json(result);
+});
+
+// http://localhost:3000/test?sort=content&sortOrder=ASC
+// http://localhost:3000/test?sort=id&sortOrder=DESC
+
+app.get("/test", async (req, res) => {
+    const allowedSortColumns = ["id", "content"]; // Define allowed columns
+    const allowedSortOrders = ["ASC", "DESC"]; // Define allowed sort orders
+
+    const sort = allowedSortColumns.includes(req.query.sort) ? req.query.sort : "id";
+    const sortOrder = allowedSortOrders.includes(req.query.sortOrder) ? req.query.sortOrder : "ASC";
+
+    try {
+        const [result] = await connection.query(`
+            SELECT * FROM test ORDER BY ${sort} ${sortOrder}
+        `);
+        res.json(result);
+    } catch (error) {
+        res.status(500).send("An error occurred while fetching data.");
+        console.error(error);
+    }
+});
+// ...this does not work?
 
 const query = "url.com?query=hello"
 const param = "url.com/param"

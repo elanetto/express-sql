@@ -3,29 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./js/script.js" type="module"></script>
-    <script src="./js/test-post.js" type="module"></script>
+    <script src="./js/fetch-posts.js" type="module"></script>
     <link rel="stylesheet" href="/css/style.css">
-    <title>Document</title>
+    <title>My Blog</title>
 </head>
 <body>
-    <form id="form">
-        <label for="id">User ID</label>
-        <input type="number" id="user-id">
+    <header>
+        <nav>
+            <ul><a href="#">Home</a></ul>
+            <ul><a href="/post/">Create Post</a></ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Welcome to my blog</h1>
+        <div id="blog">
+        </div>
+    </main>
+    <footer>
 
-        <label for="title">Title</label>
-        <input type="text" id="title">
-
-        <label for="content">Content</label>
-        <input type="text" id="content">
-
-        <button id="submit-btn">Submit</button>
-    </form>
-    <form id="test-form">
-        <label for="content">Test Content</label>
-        <input type="text" id="test-content">
-
-        <button id="test-btn">Submit</button>
-    </form>
+    </footer>
 </body>
 </html>

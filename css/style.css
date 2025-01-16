@@ -5,6 +5,7 @@ body {
     height: 100vh;
     background-color: darkslategrey;
     color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 form {
@@ -13,4 +14,53 @@ form {
     padding: 2rem;
     margin: 1rem;
     gap: 0.5rem;
+}
+
+nav {
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+}
+
+a {
+    color: white;
+    text-decoration-line: none;
+}
+
+a :hover {
+    text-decoration-line: underline;
+    text-decoration: underline;
+}
+
+/* Style the blog-posts */
+.blog-post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 6px;
+    border-color: gray;
+    background-color: white;
+    color: darkslategrey;
+    padding: 1rem;
+}
+
+.blog-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.blog-bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+}
+
+#comment-this {
+    margin: 0;
 }

@@ -116,5 +116,30 @@ app.get("/test", async (req, res) => {
 });
 // ...this does not work?
 
+// 16th of jan: Create a blog
+
+app.get('/comment', async (req, res) => {
+    // add code to grab comments here?
+});
+
+
+
+
+app.get("/post/:id", async (req, res) => {
+    const id = Number(req.params.id);
+    const [post] = await connection.query(`
+        SELECT * FROM post WHERE id=${id}
+    `);
+
+    const [comments] = await connection.query(`
+    SELECT comment.content, user.name
+    FROM comment
+    JOIN user on comment.user_id = user.id
+    WHERE comment.post_id=${id}
+    `);
+
+    res.json({post, comments});
+});
+
 const query = "url.com?query=hello"
 const param = "url.com/param"

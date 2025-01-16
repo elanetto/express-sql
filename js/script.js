@@ -3,11 +3,13 @@ document.querySelector('form').addEventListener("submit", async (e) => {
     const id = document.querySelector('#user-id').value;
     const title = document.querySelector('#title').value;
     const content = document.querySelector('#content').value;
+    const image = document.querySelector('#image').value;
 
     const body = {
         id: Number(id),
         title: title,
         content: content,
+        image: image,
     };
 
     const res = await fetch('http://localhost:3000/post', {
